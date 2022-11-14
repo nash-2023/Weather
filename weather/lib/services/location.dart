@@ -6,7 +6,7 @@ class Location {
   static Position? _position;
   static double? latitude, longitude;
 
-  static void getCrdntls() async {
+  static Future<void> getCrdntls() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -39,16 +39,16 @@ class Location {
     }
   }
 
-  static void getLocation() async {
+  static Future<void> getLocation() async {
     getCrdntls();
     try {
       _position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.low);
+      latitude = _position!.latitude;
+      longitude = _position!.longitude;
     } catch (e) {
       print(e);
     }
-    latitude = _position!.latitude;
-    longitude = _position!.longitude;
   }
 
   static Position? getPosition() {
