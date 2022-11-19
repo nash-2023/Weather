@@ -1,4 +1,14 @@
+import 'package:weather/services/location.dart';
+import 'package:weather/services/networking.dart';
+
 class WeatherModel {
+// void getLocationWeather()async{
+//   await Location.getCrdntls();
+//     await Location.getLocation();
+//     NetworkHelper netHlpr = NetworkHelper(0, 0);
+//     var weatherData = await netHlpr.getData();
+// }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
@@ -30,4 +40,6 @@ class WeatherModel {
       return 'Bring a 🧥 just in case';
     }
   }
+
+  NetworkHelper(int i, int j) {}
 }

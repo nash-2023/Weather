@@ -1,9 +1,39 @@
-import 'dart:convert' as convert;
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 import 'package:weather/services/location.dart';
 import '../utilities/weatherCode.dart';
 
 const apiKey = '3f272fb5e3276bae5d4b9f5d38096d69';
+
+class NetworkHelper {
+  NetworkHelper(this.lat, this.long);
+  final double lat, long;
+  Future getData() async {
+    //https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+    //https:///?={lat}&={lon}&={API key}
+    Uri url = Uri.https('api.openweathermap.org', '/data/2.5/weather', {
+      'lat': Location.getLat().toString(),
+      'lon': Location.getLng().toString(),
+      'appid': apiKey,
+      'units': 'metric',
+    });
+    http.Response rspns = await http.get(url);
+    if (rspns.statusCode == 200) {
+      var rowData = convert.jsonDecode(rspns.body);
+      return rowData;
+    } else {
+      print(rspns.statusCode);
+    }
+  }
+}
+
+
+
+
+
+
+
 
 // *****************************************************************************
 
@@ -34,26 +64,3 @@ const apiKey = '3f272fb5e3276bae5d4b9f5d38096d69';
 // }
 
 // ***************************************************************************
-
-void getData() async {
-  //https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-  //https:///?={lat}&={lon}&={API key}
-  Uri url = Uri.https('api.openweathermap.org', '/data/2.5/weather', {
-    'lat': Location.getLat().toString(),
-    'lon': Location.getLng().toString(),
-    'appid': '3f272fb5e3276bae5d4b9f5d38096d69',
-  });
-  // print(url);
-  http.Response rspns = await http.get(url);
-  if (rspns.statusCode == 200) {
-    var rowData = convert.jsonDecode(rspns.body);
-    double temp = rowData['main']['temp'];
-    int cond = rowData['weather'][0]['id'];
-    String city = rowData['name'];
-    print(temp);
-    print(cond);
-    print(city);
-  } else {
-    print(rspns.statusCode);
-  }
-}
