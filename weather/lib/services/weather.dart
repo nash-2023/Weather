@@ -1,13 +1,18 @@
 import 'package:weather/services/location.dart';
-import 'package:weather/services/networking.dart';
+import 'package:weather/services/networking.dart' as net;
 
 class WeatherModel {
-// void getLocationWeather()async{
-//   await Location.getCrdntls();
-//     await Location.getLocation();
-//     NetworkHelper netHlpr = NetworkHelper(0, 0);
-//     var weatherData = await netHlpr.getData();
-// }
+  Future<dynamic> getLocationWeather() async {
+    await Location.getCrdntls();
+    await Location.getLocation();
+    var weatherData = await net.NetworkHelper.getData();
+    return weatherData;
+  }
+
+  Future<dynamic> getCityWeather(String city) async {
+    var weatherData = await net.NetworkHelper.getCityData(city);
+    return weatherData;
+  }
 
   String getWeatherIcon(int condition) {
     if (condition < 300) {
