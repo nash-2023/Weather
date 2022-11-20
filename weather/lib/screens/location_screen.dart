@@ -47,13 +47,13 @@ class _LocationScreenState extends State<LocationScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/location_background.jpg'),
+            image: const AssetImage('assets/images/location_background.jpg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.white.withOpacity(0.8), BlendMode.dstATop),
           ),
         ),
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,6 +102,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       temp.toStringAsFixed(1),
                       style: kTempTextStyle,
                     ),
+                    SizedBox(width: 20.0),
                     Text(
                       weatherIcon,
                       style: kConditionTextStyle,
@@ -110,12 +111,12 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: EdgeInsets.only(left: 15.0),
                 child: Text(
                   (temp == -100.0)
                       ? "unable to find weather data !"
-                      : "$msg in $city",
-                  textAlign: TextAlign.right,
+                      : "$msg \nin $city",
+                  textAlign: TextAlign.left,
                   style: kMessageTextStyle,
                 ),
               ),

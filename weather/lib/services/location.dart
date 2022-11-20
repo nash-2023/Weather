@@ -49,6 +49,7 @@ class Location {
     } catch (e) {
       print(e);
     }
+    return;
   }
 
   static Position? getPosition() {
